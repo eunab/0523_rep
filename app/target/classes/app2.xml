@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	xmlns = "http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
+	
+	<aop:config>
+	<aop:aspect id = "helloAspect" ref="logging">
+	<aop:pointcut id = "selectSayHello1"
+		expression="execution(* app2.PrintMsg.sayHello1(..))"/>	<!-- 타겟은 sayhello1로 설정한다 -->
+	<aop:around pointcut-ref = "selectSayHello1" method="myAdvice"/>
+	</aop:aspect>
+	</aop:config>
+	
+	<bean id="printMsg" class = "app2.PrintMsg"/>
+	<bean id ="logging" class = "app2.LoggingAspect"/> <!-- logging과 pringmsg 아이디 지정 -->
+	
+	</beans>
